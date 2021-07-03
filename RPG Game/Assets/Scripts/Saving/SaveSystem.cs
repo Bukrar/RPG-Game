@@ -9,17 +9,19 @@ using UnityEngine.SceneManagement;
 
 namespace RPG.Saving
 {
-    public class SavingSystem : MonoBehaviour
+    public class SaveSystem : MonoBehaviour
     {
         public IEnumerator LoadLastScene(string saveFile)
         {
             Dictionary<string, object> state = LoadFile(saveFile);
-            int buildIndex = SceneManager.GetActiveScene().buildIndex;
             if (state.ContainsKey("lastSceneBuildIndex"))
             {
-                buildIndex = (int)state["lastSceneBuildIndex"];
+                int buildIndex = (int)state["lastSceneBuildIndex"];
+                if (buildIndex != SceneManager.GetActiveScene().buildIndex)
+                {
+                    yield return SceneManager.LoadSceneAsync(buildIndex);
+                }
             }
-            yield return SceneManager.LoadSceneAsync(buildIndex);
             RestoreState(state);
         }
 
@@ -35,11 +37,6 @@ namespace RPG.Saving
             RestoreState(LoadFile(saveFile));
         }
 
-        public void Delete(string saveFile)
-        {
-            File.Delete(GetPathFromSaveFile(saveFile));
-        }
-
         private Dictionary<string, object> LoadFile(string saveFile)
         {
             string path = GetPathFromSaveFile(saveFile);
@@ -47,6 +44,7 @@ namespace RPG.Saving
             {
                 return new Dictionary<string, object>();
             }
+
             using (FileStream stream = File.Open(path, FileMode.Open))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
@@ -54,10 +52,10 @@ namespace RPG.Saving
             }
         }
 
-        private void SaveFile(string saveFile, object state)
+        private void SaveFile(string saveFile, Dictionary<string, object> state)
         {
             string path = GetPathFromSaveFile(saveFile);
-            print("Saving to " + path);
+            print("Saveing to" + path);
             using (FileStream stream = File.Open(path, FileMode.Create))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
@@ -67,9 +65,9 @@ namespace RPG.Saving
 
         private void CaptureState(Dictionary<string, object> state)
         {
-            foreach (SaveableEntity saveable in FindObjectsOfType<SaveableEntity>())
+            foreach (SaveEntity save in FindObjectsOfType<SaveEntity>())
             {
-                state[saveable.GetUniqueIdentifier()] = saveable.CaptureState();
+                state[save.GetUniqueIdentifier()] = save.CaputureState();
             }
 
             state["lastSceneBuildIndex"] = SceneManager.GetActiveScene().buildIndex;
@@ -77,19 +75,20 @@ namespace RPG.Saving
 
         private void RestoreState(Dictionary<string, object> state)
         {
-            foreach (SaveableEntity saveable in FindObjectsOfType<SaveableEntity>())
+            foreach (SaveEntity save in FindObjectsOfType<SaveEntity>())
             {
-                string id = saveable.GetUniqueIdentifier();
+                string id = save.GetUniqueIdentifier();
                 if (state.ContainsKey(id))
                 {
-                    saveable.RestoreState(state[id]);
+                    save.RestoreState(state[id]);
                 }
             }
         }
 
         private string GetPathFromSaveFile(string saveFile)
         {
-            return Path.Combine(Application.persistentDataPath, saveFile + ".sav");
+            return Path.Combine(Application.persistentDataPath, saveFile + "sav");
         }
     }
 }
+

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3382622919245577282}
   - component: {fileID: 7904372166836715991}
   - component: {fileID: 3878673056153585138}
-  - component: {fileID: 319128125434566305}
+  - component: {fileID: -3886681856001072054}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoint: 100
---- !u!114 &319128125434566305
+--- !u!114 &-3886681856001072054
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 197690996112433648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ea9374b509b70f4bba37e4a2ca8cf00, type: 3}
+  m_Script: {fileID: 11500000, guid: b6a5482841a8d674d9ef9bc20db65b1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueIdentifier: 

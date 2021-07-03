@@ -46,5 +46,10 @@ namespace RPG.Core
                 Die();
             }
         }
+
+        public object CaputureState()
+        {
+            return healthPoint;
+        }
     }
 }
