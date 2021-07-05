@@ -52,7 +52,7 @@ namespace RPG.Saving
             SerializedProperty property = serializedobject.FindProperty("uniqueIdentifier");
             if (string.IsNullOrEmpty(property.stringValue) || !IsUnique(property.stringValue))
             {
-                uniqueIdentifier = System.Guid.NewGuid().ToString();
+                property.stringValue = System.Guid.NewGuid().ToString();
                 serializedobject.ApplyModifiedProperties();
             }
 

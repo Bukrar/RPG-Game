@@ -1,16 +1,30 @@
 using UnityEngine;
 using RPG.Movment;
 using RPG.Core;
+using RPG.Saving;
+using System;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction
+    public class Fighter : MonoBehaviour, IAction, ISaveable
     {
         Health target;
         float timeSinceLastAttack = Mathf.Infinity;
-        [SerializeField] float weaponRange = 2f;
+        Weapon currntWeapon = null;
+
         [SerializeField] float timeBetween = 1f;
-        [SerializeField] float wwaponDamage = 20f;
+        [SerializeField] Transform rightHandTransform = null;
+        [SerializeField] Transform leftHandTransform = null;
+        [SerializeField] Weapon defultWeapon = null;
+
+        private void Start()
+        {
+            if (currntWeapon == null)
+            {
+                EquipWeapon(defultWeapon);
+            }
+        }
+
         private void Update()
         {
             timeSinceLastAttack += Time.deltaTime;
@@ -20,13 +34,19 @@ namespace RPG.Combat
 
             if (!GetIsInRange())
             {
-                GetComponent<Mover>().MoveTo(target.transform.position,1f);
+                GetComponent<Mover>().MoveTo(target.transform.position, 1f);
             }
             else
             {
                 GetComponent<Mover>().Cancel();
                 AttackBehaviour();
             }
+        }
+        public void EquipWeapon(Weapon weapon)
+        {
+            currntWeapon = weapon;
+            Animator animator = GetComponent<Animator>();
+            weapon.SpawnWeapon(rightHandTransform, leftHandTransform, animator);
         }
 
         private void AttackBehaviour()
@@ -47,7 +67,7 @@ namespace RPG.Combat
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, target.transform.position) < weaponRange;
+            return Vector3.Distance(transform.position, target.transform.position) < currntWeapon.GetRange();
         }
 
         public bool CanAttack(GameObject combatTarget)
@@ -79,7 +99,32 @@ namespace RPG.Combat
         private void Hit()
         {
             if (target == null) { return; }
-            target.TakeDamage(wwaponDamage);
+
+            if (currntWeapon.HasProjectile())
+            {
+                currntWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, target);
+            }
+            else
+            {
+                target.TakeDamage(currntWeapon.GetDamage());
+            }
+        }
+
+        private void Shoot()
+        {
+            Hit();
+        }
+
+        public object CaputureState()
+        {
+            return currntWeapon.name;
+        }
+
+        public void RestoreState(object state)
+        {
+            string weaponName = (string)state;
+            Weapon weapon = Resources.Load<Weapon>(weaponName);
+            EquipWeapon(weapon);
         }
     }
 }
