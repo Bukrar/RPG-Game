@@ -2,11 +2,13 @@ using UnityEngine;
 using RPG.Movment;
 using RPG.Core;
 using RPG.Saving;
-using System;
+using RPG.Resources;
+using RPG.Stats;
+using System.Collections.Generic;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction, ISaveable
+    public class Fighter : MonoBehaviour, IAction, ISaveable, IModifierProvider
     {
         Health target;
         float timeSinceLastAttack = Mathf.Infinity;
@@ -47,6 +49,11 @@ namespace RPG.Combat
             currntWeapon = weapon;
             Animator animator = GetComponent<Animator>();
             weapon.SpawnWeapon(rightHandTransform, leftHandTransform, animator);
+        }
+
+        public Health GetTarget()
+        {
+            return target;
         }
 
         private void AttackBehaviour()
@@ -96,17 +103,34 @@ namespace RPG.Combat
             GetComponent<Animator>().SetTrigger("StopAttack");
         }
 
+        public IEnumerable<float> GetAdditiveModifiers(Stat stat)
+        {
+            if (stat == Stat.Damage)
+            {
+                yield return currntWeapon.GetDamage();
+            }
+        }
+
+        public IEnumerable<float> GetPercentageModifiers(Stat stat)
+        {
+            if (stat == Stat.Damage)
+            {
+                yield return currntWeapon.GetPercentageBonus();
+            }
+        }
+
         private void Hit()
         {
             if (target == null) { return; }
 
+            float damage = GetComponent<BaseStats>().GetStat(Stat.Damage);
             if (currntWeapon.HasProjectile())
             {
-                currntWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, target);
+                currntWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage);
             }
             else
             {
-                target.TakeDamage(currntWeapon.GetDamage());
+                target.TakeDamage(gameObject, damage);
             }
         }
 
@@ -123,8 +147,10 @@ namespace RPG.Combat
         public void RestoreState(object state)
         {
             string weaponName = (string)state;
-            Weapon weapon = Resources.Load<Weapon>(weaponName);
+            Weapon weapon = UnityEngine.Resources.Load<Weapon>(weaponName);
             EquipWeapon(weapon);
         }
+
+
     }
 }

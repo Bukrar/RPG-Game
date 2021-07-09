@@ -1,6 +1,7 @@
 using RPG.Combat;
 using RPG.Core;
 using RPG.Movment;
+using RPG.Resources;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,13 +29,16 @@ namespace RPG.Controller
         Vector3 guardPostion;
         int currentWaypointIndex = 0;
 
-        private void Start()
+        private void Awake()
         {
             fighter = GetComponent<Fighter>();
             health = GetComponent<Health>();
             player = GameObject.FindWithTag("Player");
             mover = GetComponent<Mover>();
+        }
 
+        private void Start()
+        {
             guardPostion = transform.position;
         }
 

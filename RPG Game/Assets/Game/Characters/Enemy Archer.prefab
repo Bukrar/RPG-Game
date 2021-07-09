@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: defultWeapon
       value: 
       objectReference: {fileID: 11400000, guid: aec2153c4e22884459a2d32fcc06965a, type: 2}
+    - target: {fileID: 6089532219615119673, guid: 2d7b93200cb681343a9c8db28ba09392, type: 3}
+      propertyPath: characterClass
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8957755891424566934, guid: 2d7b93200cb681343a9c8db28ba09392, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

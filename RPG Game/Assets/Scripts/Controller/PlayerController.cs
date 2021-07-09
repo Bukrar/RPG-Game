@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using RPG.Combat;
 using RPG.Core;
 using RPG.Movment;
+using RPG.Resources;
 using UnityEngine;
 
 namespace RPG.Controller
@@ -11,7 +12,7 @@ namespace RPG.Controller
     public class PlayerController : MonoBehaviour
     {
         Health health;
-        private void Start()
+        private void Awake()
         {
             health = GetComponent<Health>();
         }
