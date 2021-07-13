@@ -8329,11 +8329,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2296016837771858286, guid: 84e96032e8f28ef47a41ad13cd722617, type: 3}
+      propertyPath: fadeInTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296016837771858286, guid: 84e96032e8f28ef47a41ad13cd722617, type: 3}
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 1963238186}
     - target: {fileID: 2296016837771858286, guid: 84e96032e8f28ef47a41ad13cd722617, type: 3}
       propertyPath: destination
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296016837771858286, guid: 84e96032e8f28ef47a41ad13cd722617, type: 3}
+      propertyPath: fadeOutTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296016837771858286, guid: 84e96032e8f28ef47a41ad13cd722617, type: 3}
+      propertyPath: fadeWaitTime
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2296016837771861650, guid: 84e96032e8f28ef47a41ad13cd722617, type: 3}
@@ -9789,9 +9801,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2296016837771858286, guid: 84e96032e8f28ef47a41ad13cd722617, type: 3}
+      propertyPath: fadeInTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296016837771858286, guid: 84e96032e8f28ef47a41ad13cd722617, type: 3}
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 1991607527}
+    - target: {fileID: 2296016837771858286, guid: 84e96032e8f28ef47a41ad13cd722617, type: 3}
+      propertyPath: fadeOutTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296016837771858286, guid: 84e96032e8f28ef47a41ad13cd722617, type: 3}
+      propertyPath: sceneToLoad
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2296016837771858286, guid: 84e96032e8f28ef47a41ad13cd722617, type: 3}
+      propertyPath: fadeWaitTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2296016837771861650, guid: 84e96032e8f28ef47a41ad13cd722617, type: 3}
       propertyPath: m_Name
       value: Portal

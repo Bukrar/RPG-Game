@@ -13,6 +13,7 @@ namespace RPG.Attributes
     {
         [SerializeField] float regenerationPercentage = 70;
         [SerializeField] UnityEvent<float> takeDamage;
+        [SerializeField] UnityEvent onDie;
         [Serializable]
         public class TakeDamageEvent : UnityEvent<float>
         {
@@ -59,6 +60,7 @@ namespace RPG.Attributes
 
             if (healthPoint == 0)
             {
+                onDie.Invoke();
                 Die();
                 AwardExperience(instigator);
             }

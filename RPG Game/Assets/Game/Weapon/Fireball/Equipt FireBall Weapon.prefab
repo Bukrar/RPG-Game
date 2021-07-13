@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7361091475513096743}
   - component: {fileID: 7361091475513855627}
   - component: {fileID: 7361091475515308723}
+  - component: {fileID: 49371322914133919}
   m_Layer: 0
-  m_Name: SM_Env_Flower_01
+  m_Name: Equipt FireBall Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,3 +82,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &49371322914133919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7361091475512794301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 658e014e84841894889eabee0e727f38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
